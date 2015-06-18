@@ -7,7 +7,8 @@ MTGX_MALTEGO_ENTITY = '{http://graphml.graphdrawing.org/xmlns}data/{http://malte
 
 class Node(object):
 
-    def __init__(self, xml_data):
+    def __init__(self, graph, xml_data):
+        self.graph = graph
         self.id = xml_data.get('id')
         self.entity = xml_data.find(MTGX_MALTEGO_ENTITY)
         self._entity_type = self.entity.get('type')
@@ -25,6 +26,17 @@ class Node(object):
             return self.props[name]
         else:
             return None
+
+    def parents(self):
+        pass
+
+    def children(self):
+        children_nodes = []
+        edges = self.graph.edges(src_node=self)
+        for edge in edges:
+            children_nodes.append(edge.target_node())
+        return children_nodes
+
 
     def __unicode__(self):
         return u'Node{id: ' + unicode(self.id) + u'}'

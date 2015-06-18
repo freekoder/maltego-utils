@@ -7,7 +7,8 @@ MTGX_MALTEGO_LINK = '{http://graphml.graphdrawing.org/xmlns}data/{http://maltego
 
 class Edge(object):
 
-    def __init__(self, xml_data):
+    def __init__(self, graph, xml_data):
+        self.graph = graph
         self.id = xml_data.get('id')
         self.source = xml_data.get('source')
         self.target = xml_data.get('target')
@@ -27,6 +28,9 @@ class Edge(object):
             return self.props[name]
         else:
             return None
+
+    def target_node(self):
+        return self.graph.get_node_by_id(self.target)
 
     def __unicode__(self):
         return u'Edge{id: ' + unicode(self.id) + u', source: ' + unicode(self.source) + \
