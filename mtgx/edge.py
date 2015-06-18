@@ -4,6 +4,7 @@ __author__ = 'user'
 MTGX_PROPERTY = '{http://maltego.paterva.com/xml/mtgx}Properties/{http://maltego.paterva.com/xml/mtgx}Property'
 MTGX_MALTEGO_LINK = '{http://graphml.graphdrawing.org/xmlns}data/{http://maltego.paterva.com/xml/mtgx}MaltegoLink'
 
+
 class Edge(object):
 
     def __init__(self, xml_data):
