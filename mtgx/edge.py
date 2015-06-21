@@ -32,6 +32,9 @@ class Edge(object):
     def target_node(self):
         return self.graph.get_node_by_id(self.target)
 
+    def source_node(self):
+        return self.graph.get_node_by_id(self.source)
+
     def __unicode__(self):
         return u'Edge{id: ' + unicode(self.id) + u', source: ' + unicode(self.source) + \
                u', target: ' + unicode(self.target) + u'}'

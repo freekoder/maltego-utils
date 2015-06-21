@@ -33,6 +33,12 @@ class Graph(object):
         else:
             return None
 
+    def node_present(self, node):
+        for graph_node in self._nodes:
+            if node.id == graph_node.id:
+                return True
+        return False
+
     def edges(self, src_node=None, dst_node=None):
         _edges = self._edges
         if src_node:

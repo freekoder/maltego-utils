@@ -1,3 +1,5 @@
+from itertools import ifilter
+
 MTGX_VALUE = '{http://maltego.paterva.com/xml/mtgx}Value'
 __author__ = 'user'
 
@@ -30,13 +32,31 @@ class Node(object):
     def parents(self):
         pass
 
-    def children(self):
+    def children(self, node_type=None):
         children_nodes = []
+        children_nodes_ids = []
         edges = self.graph.edges(src_node=self)
         for edge in edges:
-            children_nodes.append(edge.target_node())
+            target_node = edge.target_node()
+            if target_node.id not in children_nodes_ids:
+                children_nodes.append(target_node)
+                children_nodes_ids.append(target_node.id)
+        if node_type:
+            children_nodes = ifilter(lambda x: x.entity_type() == node_type, children_nodes)
         return children_nodes
 
+    def parents(self, node_type=None):
+        parent_nodes = []
+        parent_nodes_ids = []
+        edges = self.graph.edges(dst_node=self)
+        for edge in edges:
+            source_node = edge.source_node()
+            if source_node.id not in parent_nodes_ids:
+                parent_nodes.append(source_node)
+                parent_nodes_ids.append(source_node.id)
+        if node_type:
+            parent_nodes = ifilter(lambda x: x.entity_type() == node_type, parent_nodes)
+        return parent_nodes
 
     def __unicode__(self):
         return u'Node{id: ' + unicode(self.id) + u'}'
